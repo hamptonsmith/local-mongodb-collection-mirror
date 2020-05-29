@@ -1,5 +1,6 @@
 'use strict';
 
+const clone = require('clone');
 const EventEmitter = require('events');
 const MongoDB = require('mongodb');
 const SbError = require('@shieldsbetter/sberror');
@@ -88,7 +89,7 @@ module.exports = class LocalMongoDbCollectionMirror extends EventEmitter {
         const predicate = sift(query);
         for (let value of this.cache.values()) {
             if (predicate(value)) {
-                result.push(value);
+                result.push(clone(value));
             }
         }
         
@@ -105,16 +106,20 @@ module.exports = class LocalMongoDbCollectionMirror extends EventEmitter {
         return this.cache.get(docKey);
     }
     
+    has(key) {
+        return this.cache.has(JSON.stringify(key));
+    }
+    
+    isClosed() {
+        return this.closed;
+    }
+    
     isReady() {
         return !!this.changeStream && !this.invalid && !this.closed;
     }
     
     isValid() {
         return !this.invalid;
-    }
-    
-    isClosed() {
-        return this.closed;
     }
     
     async waitUntilReady() {
@@ -171,7 +176,7 @@ function setCachedValue(keyDoc, doc, mirror) {
         mirror.cache.delete(docKey);
     }
     
-    doEmit(mirror, 'changed', this, docKey);
+    doEmit(mirror, 'changed', this, keyDoc._id);
 }
 
 function cacheKey(doc) {

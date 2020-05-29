@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@shieldsbetter/sberror": "0.0.4",
+    "clone": "^2.1.2",
     "mongodb": "^3.5.8",
     "sift": "^13.0.3"
   },

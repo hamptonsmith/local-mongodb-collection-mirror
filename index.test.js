@@ -59,8 +59,10 @@ test('populates with initial data', async () => {
         { _id: 'def', bazz: { waldo: 'plugh' } }
     ]);
     
+    assert(mirror.has('abc'));
     assert.deepEqual(mirror.get('abc'), { _id: 'abc', foo: 'bar' });
     
+    assert(!mirror.has('ghi'));
     try {
         mirror.get('ghi');
         assert.fail('should fail');
@@ -117,6 +119,7 @@ test('tracks delete', async () => {
     
     assertDocSetsEqual(docs, []);
     
+    assert(!mirror.has('abc'));
     try {
         mirror.get('abc');
         assert.fail('should fail');
