@@ -1,0 +1,23 @@
+{
+  "name": "@shieldsbetter/local-mongodb-collection-mirror",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --testTimeout=90000",
+    "coverage": "jest --coverage --testTimeout=90000 --coverageReporters html && open-cli coverage/index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@shieldsbetter/sberror": "0.0.4",
+    "mongodb": "^3.5.8",
+    "sift": "^13.0.3"
+  },
+  "devDependencies": {
+    "deep-equal": "^2.0.3",
+    "jest": "^26.0.1",
+    "mongodb-memory-server": "^6.6.1",
+    "open-cli": "^6.0.1"
+  }
+}
